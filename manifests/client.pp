@@ -71,20 +71,4 @@ class nut::client {
     audit   => $nut::manage_audit,
     noop    => $nut::noops,
   }
-
-  ### Service monitoring, if enabled ( monitor => true )
-  if $nut::bool_monitor == true {
-    if $nut::client_service != '' {
-      monitor::process { 'ups_client_process':
-      process  => $nut::client_process,
-      service  => $nut::client_service,
-      pidfile  => $nut::client_pid_file,
-      user     => $nut::process_user,
-      argument => $nut::process_args,
-      tool     => $nut::monitor_tool,
-      enable   => $nut::manage_monitor,
-      noop     => $nut::noops,
-      }
-    }
-  }
 }

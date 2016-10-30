@@ -76,35 +76,4 @@ class nut::server {
       user_upsmon_mode => $nut::server_user_upsmon_mode,
     }
   }
-
-  ### Firewall management, if enabled ( firewall => true )
-  if $nut::bool_firewall == true and $nut::port != '' {
-    firewall { "nut_${nut::protocol}_${nut::port}":
-      source      => $nut::firewall_src,
-      destination => $nut::firewall_dst,
-      protocol    => $nut::protocol,
-      port        => $nut::port,
-      action      => 'allow',
-      direction   => 'input',
-      tool        => $nut::firewall_tool,
-      enable      => $nut::manage_firewall,
-      noop        => $nut::noops,
-    }
-  }
-
-  ### Service monitoring, if enabled ( monitor => true )
-  if $nut::bool_monitor == true {
-    if $nut::server_service != '' {
-      monitor::process { 'nut_server_process':
-      process  => $nut::server_process,
-      service  => $nut::server_service,
-      pidfile  => $nut::server_pid_file,
-      user     => $nut::process_user,
-      argument => $nut::process_args,
-      tool     => $nut::monitor_tool,
-      enable   => $nut::manage_monitor,
-      noop     => $nut::noops,
-      }
-    }
-  }
 }

@@ -20,13 +20,6 @@
 # Standard class parameters
 # Define the general class behaviour and customizations
 #
-# [*process_args*]
-#   The name of nut arguments. Used by puppi and monitor.
-#   Used only in case the nut process name is generic (java, ruby...)
-#
-# [*process_user*]
-#   The name of the user nut runs with. Used by puppi and monitor.
-#
 # [*start_mode*]
 #   The type of the service start: "netserver", "netclient", "standalone" or "none".
 #   Default: none
@@ -118,39 +111,6 @@
 #   Can be defined also by the (top scope) variables $nut_monitor_target
 #   and $monitor_target
 #
-# [*puppi*]
-#   Set to 'true' to enable creation of module data files that are used by puppi
-#   Can be defined also by the (top scope) variables $nut_puppi and $puppi
-#
-# [*puppi_helper*]
-#   Specify the helper to use for puppi commands. The default for this module
-#   is specified in params.pp and is generally a good choice.
-#   You can customize the output of puppi commands for this module using another
-#   puppi helper. Use the define puppi::helper to create a new custom helper
-#   Can be defined also by the (top scope) variables $nut_puppi_helper
-#   and $puppi_helper
-#
-# [*firewall*]
-#   Set to 'true' to enable firewalling of the services provided by the module
-#   Can be defined also by the (top scope) variables $nut_firewall
-#   and $firewall
-#
-# [*firewall_tool*]
-#   Define which firewall tool(s) (ad defined in Example42 firewall module)
-#   you want to use to open firewall for nut port(s)
-#   Can be defined also by the (top scope) variables $nut_firewall_tool
-#   and $firewall_tool
-#
-# [*firewall_src*]
-#   Define which source ip/net allow for firewalling nut. Default: 0.0.0.0/0
-#   Can be defined also by the (top scope) variables $nut_firewall_src
-#   and $firewall_src
-#
-# [*firewall_dst*]
-#   Define which destination ip to use for firewalling. Default: $ipaddress
-#   Can be defined also by the (top scope) variables $nut_firewall_dst
-#   and $firewall_dst
-#
 # [*debug*]
 #   Set to 'true' to enable modules debugging
 #   Can be defined also by the (top scope) variables $nut_debug and $debug
@@ -169,15 +129,6 @@
 #   Set noop metaparameter to true for all the resources managed by the module.
 #   Basically you can run a dryrun for this specific module if you set
 #   this to true. Default: undef
-#
-# [*data_dir*]
-#   Path of application data directory. Used by puppi
-#
-# [*log_dir*]
-#   Base logs directory. Used by puppi
-#
-# [*log_file*]
-#   Log file(s). Used by puppi
 #
 # ###############################
 # ### Client (upsmon) parameters.
@@ -343,12 +294,6 @@ class nut (
   $monitor                       = params_lookup( 'monitor' , 'global' ),
   $monitor_tool                  = params_lookup( 'monitor_tool' , 'global' ),
   $monitor_target                = params_lookup( 'monitor_target' , 'global' ),
-  $puppi                         = params_lookup( 'puppi' , 'global' ),
-  $puppi_helper                  = params_lookup( 'puppi_helper' , 'global' ),
-  $firewall                      = params_lookup( 'firewall' , 'global' ),
-  $firewall_tool                 = params_lookup( 'firewall_tool' , 'global' ),
-  $firewall_src                  = params_lookup( 'firewall_src' , 'global' ),
-  $firewall_dst                  = params_lookup( 'firewall_dst' , 'global' ),
   $debug                         = params_lookup( 'debug' , 'global' ),
   $audit_only                    = params_lookup( 'audit_only' , 'global' ),
   $noops                         = params_lookup( 'noops' ),
@@ -455,7 +400,6 @@ class nut (
   $bool_disable=any2bool($disable)
   $bool_disableboot=any2bool($disableboot)
   $bool_monitor=any2bool($monitor)
-  $bool_puppi=any2bool($puppi)
   $bool_firewall=any2bool($firewall)
   $bool_debug=any2bool($debug)
   $bool_audit_only=any2bool($audit_only)
@@ -577,17 +521,6 @@ class nut (
   ### Include custom class if $my_class is set
   if $nut::my_class {
     include $nut::my_class
-  }
-
-  ### Provide puppi data, if enabled ( puppi => true )
-  if $nut::bool_puppi == true {
-    $classvars=get_class_args()
-    puppi::ze { 'nut':
-      ensure    => $nut::manage_file,
-      variables => $classvars,
-      helper    => $nut::puppi_helper,
-      noop      => $nut::noops,
-    }
   }
 
   ### Debugging, if enabled ( debug => true )
