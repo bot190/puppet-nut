@@ -50,7 +50,7 @@ define nut::upssched (
       warn    => true,
       owner   => $nut::config_file_owner,
       group   => $nut::config_file_group,
-      require => Package[$nut::server_package],
+      require => Package[$nut::client_package],
     }
       concat::fragment{ 'nut_schedule_header':
       target  => $nut::server_config_file,
