@@ -28,6 +28,9 @@ class nut::params {
   }
 
   ### CLIENT parameters
+  $client_sched_template_stanza = 'nut/concat/upssched.conf-stanza.erb'
+  $client_sched_template_header = 'nut/concat/upssched.conf-header.erb'
+  
   $client_package = $::operatingsystem ? {
     default => 'nut-client',
   }
@@ -43,6 +46,10 @@ class nut::params {
 
   $client_config_file = $::operatingsystem ? {
     default => "${config_dir}/upsmon.conf",
+  }
+
+  $client_upssched_config_file = $::operatingsystem ? {
+    default => "${config_dir}/upssched.conf",
   }
 
   $client_pid_file = $::operatingsystem ? {
@@ -235,4 +242,13 @@ class nut::params {
   $client_rbwarntime = '43200'
   $client_nocommwarmtime = '300'
   $client_finaldelay ='5'
+  
+  ### CLIENT UPS Schedule parameters
+  $cmdscript = '/bin/upssched-cmd'
+  $pipefn = $::operatingsystem ? {
+    default => '/var/run/nut/upssched.pipe',
+  }
+  $lockfn = $::operatingsystem ? {
+    default => '/var/run/nut/upssched.lock',
+  }
 }

@@ -1,0 +1,7 @@
+# File managed by Puppet
+#
+<% if scope['nut::client_cmdscript'] != '' -%> CMDSCRIPT "<%= scope['nut::client_cmdscript'] %>" <% end %>
+<% if scope['nut::client_pipefn'] != '' -%> PIPEFN "<%= scope['nut::client_pipefn'] %>" <% end %>
+<% if scope['nut::client_lockfn'] != '' -%> LOCKFN "<%= scope['nut::client_lockfn'] %>" <% end %>
+
+# ============================================================================

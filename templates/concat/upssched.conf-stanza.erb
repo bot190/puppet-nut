@@ -1,0 +1,5 @@
+AT <%= @notifytype %> <%= @$real_upsname %> <%= @action -%> 
+ <% if @action == "START-TIMER" or @action == "CANCEL-TIMER" %> <%= @timername -%> 
+ <% elseif @action == "EXECUTE" %> <%= @command %> <% end -%>
+ <% if @action == "START-TIMER" %> <%= @interval -%>
+ <% elseif @action == "CANCEL-TIMER" and @command != nil %> <%= @command %> <% end -%>

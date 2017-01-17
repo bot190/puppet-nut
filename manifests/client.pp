@@ -64,7 +64,6 @@ class nut::client {
     owner   => $nut::config_file_owner,
     group   => $nut::config_file_group,
     require => Package[$nut::client_package],
-    notify  => $nut::manage_service_autorestart,
     source  => $nut::manage_client_file_source,
     content => $nut::manage_client_file_content,
     replace => $nut::manage_file_replace,
