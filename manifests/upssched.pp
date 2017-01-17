@@ -15,7 +15,8 @@ define nut::upssched (
   $timername  = undef,
   $notifytype = undef,
   $command    = undef,
-  $order       = '50',
+  $interval   = undef,
+  $order      = '50',
   ) {
 
   include nut
@@ -39,7 +40,10 @@ define nut::upssched (
   if ($action == "EXECUTE" and $command == undef){
     fail("No command specified for EXECUTE")
   }
-      
+  if ($action == "START-TIMER" and $interval == undef) {
+      fail("No inteval specified!")
+  }
+  
   if ! defined(Concat[$upssched_file]) {
     concat { $upssched_file:
       mode    => '0644',
