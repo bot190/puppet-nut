@@ -36,7 +36,7 @@ class nut::params {
   }
 
   $client_service = $::operatingsystem ? {
-    /(?i:Debian|Ubuntu|Mint)/ => 'nut-client',
+    /(?i:Debian|Ubuntu|Mint)/ => 'nut-monitor',
     default                   => 'ups',
   }
 
@@ -201,7 +201,7 @@ class nut::params {
   $puppi_helper = 'standard'
   $debug = false
   $audit_only = false
-  $noops = undef
+  $noops = false
 
   ### CLIENT Template parameters
   $client_run_as_user = 'nut'

@@ -490,7 +490,7 @@ class nut (
   }
 
   # The whole nut configuration directory can be recursively overriden
-  if $nut::source_dir {
+  if $nut::source_dir != '' {
     file { 'ups.dir':
       ensure  => directory,
       path    => $nut::config_dir,
