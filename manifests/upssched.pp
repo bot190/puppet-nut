@@ -59,7 +59,7 @@ define nut::upssched (
     }
   }
   
-  concat::fragment { "nut_schedule_stanza":
+  concat::fragment { "nut_schedule_$title":
     target  => $upssched_file,
     content => template($nut::client_sched_template_stanza),
     order   => $order,
