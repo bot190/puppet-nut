@@ -7,5 +7,5 @@ AT <%= @notifytype %> <%= @real_upsname %> <%= @action -%>
 <%- if @action == "START-TIMER" -%>
  <%= @interval -%>
 <%- elsif @action == "CANCEL-TIMER" and @command != nil -%>
- <%= @command -%>
+ <%= @command %>
 <%- end %>
