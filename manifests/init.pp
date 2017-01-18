@@ -153,10 +153,10 @@
 #   If defined, nut main config file will have the param: source => $source
 #   Can be defined also by the (top scope) variable $nut_source
 #
-# [*client_name*]
-# [*client_user*]
-# [*client_password*]
 # [*client_minsupplies*]
+# [*client_UPSs*]
+#   This should be a hash of each UPS FQN name, containing a hash with
+#   Power Value, User, Password, and Mode to be used for the Monitor instance
 # [*client_finaldelay*]
 # [*client_deadtime*]
 # [*client_hostsync*]
@@ -164,11 +164,9 @@
 # [*client_pollfreq*]
 # [*client_pollfreqalert*]
 # [*client_powerdownflag*]
-# [*client_powervalue*]
-# [*client_rbwarntime*]
+# # [*client_rbwarntime*]
 # [*client_run_as_user*]
-# [*client_server_host*]
-# [*client_shutdowncmd*]
+# # [*client_shutdowncmd*]
 # [*client_ups_mode*]
 #
 # [*client_notifycmd*]
@@ -355,12 +353,6 @@ class nut (
   $client_process                = $nut::params::client_process,
   $client_pid_file               = $nut::params::client_pid_file,
   $client_run_as_user            = $nut::params::client_run_as_user,
-  $client_name                   = $nut::params::client_name,
-  $client_server_host            = $nut::params::client_server_host,
-  $client_powervalue             = $nut::params::client_powervalue,
-  $client_user                   = $nut::params::client_user,
-  $client_password               = $nut::params::client_password,
-  $client_ups_mode               = $nut::params::client_ups_mode,
   $client_minsupplies            = $nut::params::client_minsupplies,
   $client_shutdowncmd            = $nut::params::client_shutdowncmd,
   $client_notifycmd              = $nut::params::client_notifycmd,

@@ -205,12 +205,6 @@ class nut::params {
 
   ### CLIENT Template parameters
   $client_run_as_user = 'nut'
-  $client_name = ''
-  $client_server_host = ''
-  $client_powervalue = '1'
-  $client_user = ''
-  $client_password = ''
-  $client_ups_mode = 'slave'
   $client_minsupplies = '1'
   $client_shutdowncmd = '/sbin/shutdown -h +0'
   $client_notifycmd = '/usr/local/bin/nut-notify'
