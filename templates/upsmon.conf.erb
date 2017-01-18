@@ -2,7 +2,7 @@
 #
 RUN_AS_USER <%= scope['nut::client_run_as_user'] %>
 <% scope['nut::client_UPSs'].each do |name, ups| -%>
-MONITOR <%= @name %> <%= ups['powervalue'] %> <%= ups['user'] %>  <%= ups['password'] %> <%= ups['mode'] %>
+MONITOR <%= name %> <%= ups['powervalue'] %> <%= ups['user'] %>  <%= ups['password'] %> <%= ups['mode'] %>
 <% end -%>
 MINSUPPLIES <%= scope['nut::client_minsupplies'] %>
 SHUTDOWNCMD "<%= scope['nut::client_shutdowncmd'] %>"

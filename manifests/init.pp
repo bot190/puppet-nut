@@ -353,6 +353,7 @@ class nut (
   $client_process                = $nut::params::client_process,
   $client_pid_file               = $nut::params::client_pid_file,
   $client_run_as_user            = $nut::params::client_run_as_user,
+  $client_UPSs                   = undef,
   $client_minsupplies            = $nut::params::client_minsupplies,
   $client_shutdowncmd            = $nut::params::client_shutdowncmd,
   $client_notifycmd              = $nut::params::client_notifycmd,
