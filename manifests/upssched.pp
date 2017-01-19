@@ -53,10 +53,25 @@ define nut::upssched (
       require => Package[$nut::client_package],
     }
       concat::fragment{ 'nut_schedule_header':
-      target  => $nut::server_config_file,
+      target  => $upssched_file,
       content => template($nut::client_sched_template_header),
       order   => 01,
     }
+  }
+  
+  # Allow for a command script file to be specified
+  if ! defined(File[$nut::client_cmdscript]) and 
+     ($nut::client_sched_cmd_template != undef or $nut::client_sched_cmd_source != undef ) {
+    file { $nut::client_cmdscript:
+      ensure  => file,
+      path    => $nut::client_cmdscript,
+      require => Package[$nut::client_package],
+      source  => $nut::client_sched_cmd_source,
+      content => template($nut::client_sched_cmd_template),
+      owner   => $nut::config_file_owner,
+      group   => $nut::config_file_group,
+    }
+    
   }
   
   concat::fragment { "nut_schedule_$title":
@@ -64,41 +79,4 @@ define nut::upssched (
     content => template($nut::client_sched_template_stanza),
     order   => $order,
   }
-
-#  case $sched_action {
-#    'START-TIMER': {
-#      augeas { "$real_ups_name-$sched_notifytype":
-#        incl => $upssched_file,
-#        lens => "nutupsschedconf.aug",
-#        changes => [
-#          "set sched/upsname $real_ups_name",
-#          "set sched/notifytype $sched_notifytype",
-#          "set sched/START-TIMER/interval $sched_interval",
-#          "set sched/START-TIMER/timername $sched_timername",
-#          "mv sched $upssched_file/AT[upsname = $real_ups_name and notifytype = $sched_notifytype]"
-#      ]}
-#    }
-#    'EXECUTE': {
-#      augeas { "$real_ups_name-$sched_notifytype":
-#        incl => $upssched_file,
-#        lens => "nutupsschedconf.aug",
-#        changes => [
-#          "set sched/upsname $real_ups_name",
-#          "set sched/notifytype $sched_notifytype",
-#          "set sched/EXECUTE/command $sched_command",
-#          "mv sched $upssched_file/AT[upsname = $real_ups_name and notifytype = $sched_notifytype]"
-#      ]}
-#    }
-#    'CANCEL-TIMER': {
-#      augeas { "$real_ups_name-$sched_notifytype":
-#        incl => $upssched_file,
-#        lens => "nutupsschedconf.aug",
-#        changes => [
-#          "set sched/upsname $real_ups_name",
-#          "set sched/notifytype $sched_notifytype",
-#          "set sched/CANCEL-TIMER/timername $sched_timername",
-#          "mv sched $upssched_file/AT[upsname = $real_ups_name and notifytype = $sched_notifytype]"
-#      ]}
-#    }
-#  }
 }

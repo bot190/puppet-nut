@@ -350,6 +350,8 @@ class nut (
   $client_lockfn                 = $nut::params::lockfn,
   $client_sched_template_stanza  = $nut::params::client_sched_template_stanza,
   $client_sched_template_header  = $nut::params::client_sched_template_header,
+  $client_sched_cmd_template     = undef,
+  $client_sched_cmd_source       = undef,
   $client_process                = $nut::params::client_process,
   $client_pid_file               = $nut::params::client_pid_file,
   $client_run_as_user            = $nut::params::client_run_as_user,
