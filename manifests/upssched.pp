@@ -46,16 +46,18 @@ define nut::upssched (
   
   if ! defined(Concat[$upssched_file]) {
     concat { $upssched_file:
-      mode    => $nut::config_file_mode,
-      warn    => true,
-      owner   => $nut::config_file_owner,
-      group   => $nut::config_file_group,
-      require => Package[$nut::client_package],
+      mode      => $nut::config_file_mode,
+      show_diff => false,
+      warn      => true,
+      owner     => $nut::config_file_owner,
+      group     => $nut::config_file_group,
+      require   => Package[$nut::client_package],
     }
       concat::fragment{ 'nut_schedule_header':
-      target  => $upssched_file,
-      content => template($nut::client_sched_template_header),
-      order   => 01,
+      target    => $upssched_file,
+      content   => template($nut::client_sched_template_header),
+      show_diff => false,
+      order     => 01,
     }
   }
   
@@ -63,13 +65,14 @@ define nut::upssched (
   if ! defined(File[$nut::client_cmdscript]) and 
      ($nut::client_sched_cmd_template != undef or $nut::client_sched_cmd_source != undef ) {
     file { $nut::client_cmdscript:
-      ensure  => file,
-      path    => $nut::client_cmdscript,
-      require => Package[$nut::client_package],
-      source  => $nut::client_sched_cmd_source,
-      content => template($nut::client_sched_cmd_template),
-      owner   => $nut::config_file_owner,
-      group   => $nut::config_file_group,
+      ensure    => file,
+      show_diff => false,
+      path      => $nut::client_cmdscript,
+      require   => Package[$nut::client_package],
+      source    => $nut::client_sched_cmd_source,
+      content   => template($nut::client_sched_cmd_template),
+      owner     => $nut::config_file_owner,
+      group     => $nut::config_file_group,
     }
     
   }
