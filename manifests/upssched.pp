@@ -46,7 +46,7 @@ define nut::upssched (
   
   if ! defined(Concat[$upssched_file]) {
     concat { $upssched_file:
-      mode    => '0644',
+      mode    => $nut::config_file_mode,
       warn    => true,
       owner   => $nut::config_file_owner,
       group   => $nut::config_file_group,
