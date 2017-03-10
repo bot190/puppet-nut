@@ -56,7 +56,6 @@ define nut::upssched (
       concat::fragment{ 'nut_schedule_header':
       target    => $upssched_file,
       content   => template($nut::client_sched_template_header),
-      show_diff => false,
       order     => 01,
     }
   }
